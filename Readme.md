@@ -1,5 +1,14 @@
 # REST API Node.JS & MongoDB
 
+## System Requirement
+1. Node.js
+2. MongoDB
+
+## Note
+1. Port can change from .env file
+2. MongoDB connectionstring can change from .env file
+3. JWT secret key & limit expiration time can change from .env file
+
 ## List Modules
 
 1. Auth

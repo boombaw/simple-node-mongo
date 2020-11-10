@@ -15,7 +15,8 @@ register.post("/", async (req, res) => {
     if (error) {
         httpResponse.code = 400;
         httpResponse.error = error.details[0].message;
-
+        httpResponse.data = {}
+        
         return res.status(httpResponse.code).json(httpResponse);
     }
 
@@ -24,7 +25,8 @@ register.post("/", async (req, res) => {
         if (count > 0) {
             httpResponse.code = 400;
             httpResponse.error = "Phone number is already";
-            
+            httpResponse.data = {}
+
             return res.status(httpResponse.code).json(httpResponse);
         }
     });
@@ -52,7 +54,7 @@ register.post("/", async (req, res) => {
         httpResponse.code = 500;
         httpResponse.error = err.message
         htpResponse.data ={}
-        
+
         return res.status(httpResponse.code).json(httpResponse);
     }
 
