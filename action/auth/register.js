@@ -16,7 +16,8 @@ register.post("/", async (req, res) => {
         httpResponse.code = 400;
         httpResponse.error = error.details[0].message;
         httpResponse.data = {}
-        
+        httpResponse.message = "";
+
         return res.status(httpResponse.code).json(httpResponse);
     }
 
@@ -25,7 +26,8 @@ register.post("/", async (req, res) => {
         if (count > 0) {
             httpResponse.code = 400;
             httpResponse.error = "Phone number is already";
-            httpResponse.data = {}
+            httpResponse.message = ""
+            httpResponse.data = {};
 
             return res.status(httpResponse.code).json(httpResponse);
         }
@@ -33,8 +35,12 @@ register.post("/", async (req, res) => {
     
 
     // hash password
-    const salt = await bcrypt.genSalt(7);
-    const hashPass = await bcrypt.hash(req.body.password, salt);
+    const salt = await bcrypt.genSalt(7).catch((e) => {
+      console.error(e.message);
+    });
+    const hashPass = await bcrypt.hash(req.body.password, salt).catch((e) => {
+      console.error(e.message);
+    });
 
     const user = new User({
         name: req.body.name,
@@ -48,14 +54,15 @@ register.post("/", async (req, res) => {
         httpResponse.code = 201;
         httpResponse.message = "User was created";
         httpResponse.data = newUser
-
+        httpResponse.error = ""
+        delete httpResponse.error;
+        
         return res.status(httpResponse.code).json(httpResponse);
     } catch (err) {
         httpResponse.code = 500;
         httpResponse.error = err.message
-        htpResponse.data ={}
-
-        return res.status(httpResponse.code).json(httpResponse);
+        httpResponse.data ={}
+        httpResponse.message = ""
     }
 
 });

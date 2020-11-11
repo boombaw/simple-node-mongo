@@ -30,6 +30,7 @@ create.post("/", async (req, res) => {
         httpResponse.code = 400;
         httpResponse.error = err.message
         httpResponse.data ={}
+        httpResponse.message = ""
 
         return res.status(httpResponse.code).json(httpResponse);
     }

@@ -20,14 +20,20 @@ login.post("/", async (req, res) =>{
       return res.status(httpResponse.code).json(httpResponse);
     }
 
-    const user = await User.findOne({phone: req.body.phone});
+    const user = await User.findOne({ phone: req.body.phone }).catch((e) => {
+      console.error(e.message);
+    });
+
     if(!user) {
         httpResponse.code = 400;
         httpResponse.error = "Account with " + req.body.phone + " not found";
         return res.status(httpResponse.code).json(httpResponse);
     }
 
-    const pwd = await bcrypt.compare(req.body.password, user.password);
+    const pwd = await bcrypt.compare(req.body.password, user.password).catch((e) => {
+      console.error(e.message);
+    });
+    
     if (!pwd) {
         httpResponse.code = 400;
         httpResponse.error = "Please check your valid password";

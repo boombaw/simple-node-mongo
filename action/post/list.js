@@ -46,8 +46,8 @@ list.get("/", async (req, res) => {
     } catch (err) {
       httpResponse.code = 200;
       httpResponse.error = err.message;
-
-      return res.status(httpResponse.code).json(httpResponse);
+      httpResponse.data = {}
+      httpResponse.message = ""
     }
   }
 );

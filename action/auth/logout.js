@@ -19,8 +19,6 @@ logout.post('/', verifyToken, async (req, res) => {
     } catch (err) {
         httpResponse.code = 500;
         httpResponse.error = err.message
-
-        return res.status(httpResponse.code).json(httpResponse);
     }
 });
 
