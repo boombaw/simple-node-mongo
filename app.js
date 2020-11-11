@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
@@ -7,7 +8,7 @@ require("dotenv").config();
 const { MONGODB } = require("./database/conn");
 
 app.use(bodyParser.json());
-
+app.use(cors())
 // import routes
 const routes = require("./route")
 app.use("/api", routes);
