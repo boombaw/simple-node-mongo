@@ -14,7 +14,8 @@ logout.post('/', verifyToken, async (req, res) => {
 
         httpResponse.code = 200;
         httpResponse.message = "Logout successfully";
-
+        delete httpResponse.error;
+        
         return res.status(httpResponse.code).json(httpResponse);
     } catch (err) {
         httpResponse.code = 500;

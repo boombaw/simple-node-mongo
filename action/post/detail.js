@@ -13,7 +13,8 @@ detail.get('/:id',  async (req, res) => {
         httpResponse.code = 200;
         httpResponse.message = "Success";
         httpResponse.data = post;
-        
+        delete httpResponse.error;
+
         return res.status(httpResponse.code).json(httpResponse);
     } catch (err) {
         httpResponse.code = 500;

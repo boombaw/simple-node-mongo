@@ -34,6 +34,7 @@ list.get("/", async (req, res) => {
             prevPage: data.prevPage,
             pagingCounter: data.pagingCounter,
           };
+          delete httpResponse.error;
 
           return res.status(httpResponse.code).send(httpResponse);
         })
@@ -44,7 +45,7 @@ list.get("/", async (req, res) => {
           });
         });
     } catch (err) {
-      httpResponse.code = 200;
+      httpResponse.code = 500;
       httpResponse.error = err.message;
       httpResponse.data = {}
       httpResponse.message = ""

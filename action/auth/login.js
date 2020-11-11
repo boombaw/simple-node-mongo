@@ -33,7 +33,7 @@ login.post("/", async (req, res) =>{
     const pwd = await bcrypt.compare(req.body.password, user.password).catch((e) => {
       console.error(e.message);
     });
-    
+
     if (!pwd) {
         httpResponse.code = 400;
         httpResponse.error = "Please check your valid password";
@@ -47,7 +47,8 @@ login.post("/", async (req, res) =>{
     httpResponse.code = 200;
     httpResponse.message = "Login successful";
     httpResponse.data = { "token" : token};
-
+    delete httpResponse.error;
+    
     return res.header({ "user-token": token }).json(httpResponse);
 });
 
